@@ -1,6 +1,8 @@
 package plugin.firstplugin;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -10,7 +12,9 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,9 +39,9 @@ public final class First_plugin extends JavaPlugin implements Listener {
     World world = player.getWorld();
 
     //素数判定
-    //BigInteger val = BigInteger.valueOf(this.count);
-    //if (val.isProbablePrime(1)) {
-    //System.out.println(val + "は素数です");
+    //BigInteger val = new BigInteger(String.valueOf(this.count));
+    //if (val.isProbablePrime(5)) {
+    //  System.out.println(val + "は素数です");
 
     List<Color> colorList = List.of(Color.RED, Color.BLUE, Color.WHITE, Color.PURPLE);
     if (count % 4 == 0) {
@@ -64,5 +68,16 @@ public final class First_plugin extends JavaPlugin implements Listener {
       }
     }
     count++;
+  }
+
+  @EventHandler
+  public void onPlayerBedEnter(PlayerBedEnterEvent e) {
+    Player player = e.getPlayer();
+    ItemStack[] itemStacks = player.getInventory().getContents();
+    Arrays.stream(itemStacks).filter(
+            item -> !Objects.isNull(item) && item.getMaxStackSize() == 64 && item.getAmount() < 64)
+        .forEach(item -> item.setAmount(20));
+
+    player.getInventory().setContents(itemStacks);
   }
 }
