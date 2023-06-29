@@ -1,6 +1,6 @@
 package plugin.firstplugin;
 
-import java.math.BigInteger;
+import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -35,28 +35,33 @@ public final class First_plugin extends JavaPlugin implements Listener {
     World world = player.getWorld();
 
     //素数判定
-    BigInteger val = BigInteger.valueOf(this.count);
-    if (val.isProbablePrime(1)) {
-      System.out.println(val + "は素数です");
+    //BigInteger val = BigInteger.valueOf(this.count);
+    //if (val.isProbablePrime(1)) {
+    //System.out.println(val + "は素数です");
 
-      // 花火オブジェクトをプレイヤーのロケーション地点に対して出現させる。
-      Firework firework = world.spawn(player.getLocation(), Firework.class);
+    List<Color> colorList = List.of(Color.RED, Color.BLUE, Color.WHITE, Color.PURPLE);
+    if (count % 4 == 0) {
+      for (Color color : colorList) {
 
-      // 花火オブジェクトが持つメタ情報を取得。
-      FireworkMeta fireworkMeta = firework.getFireworkMeta();
+        // 花火オブジェクトをプレイヤーのロケーション地点に対して出現させる。
+        Firework firework = world.spawn(player.getLocation(), Firework.class);
 
-      // メタ情報に対して設定を追加したり、値の上書きを行う。
-      // 今回は青色で星型の花火を打ち上げる。
-      fireworkMeta.addEffect(
-          FireworkEffect.builder()
-              .withColor(Color.YELLOW, Color.LIME)
-              .with(Type.BALL_LARGE)
-              .withFlicker()
-              .build());
-      fireworkMeta.setPower(0);
+        // 花火オブジェクトが持つメタ情報を取得。
+        FireworkMeta fireworkMeta = firework.getFireworkMeta();
 
-      // 追加した情報で再設定する。
-      firework.setFireworkMeta(fireworkMeta);
+        // メタ情報に対して設定を追加したり、値の上書きを行う。
+        // 今回は青色で星型の花火を打ち上げる。
+        fireworkMeta.addEffect(
+            FireworkEffect.builder()
+                .withColor(color)
+                .with(Type.BALL_LARGE)
+                .withFlicker()
+                .build());
+        fireworkMeta.setPower(1);
+
+        // 追加した情報で再設定する。
+        firework.setFireworkMeta(fireworkMeta);
+      }
     }
     count++;
   }
