@@ -61,7 +61,7 @@ public final class First_plugin extends JavaPlugin implements Listener {
                 .with(Type.BALL_LARGE)
                 .withFlicker()
                 .build());
-        fireworkMeta.setPower(1);
+        fireworkMeta.setPower((1 + 2));
 
         // 追加した情報で再設定する。
         firework.setFireworkMeta(fireworkMeta);
