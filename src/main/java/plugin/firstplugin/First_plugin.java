@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -42,6 +44,23 @@ public final class First_plugin extends JavaPlugin implements Listener {
     //plugin.ymlにコマンドを入力する。
     getCommand("allSetLevel").setExecutor(new AllSetLevelCommand());
   }
+
+  //Joinした時にEntityが発生する
+  @EventHandler
+  public void onPlayerJoin(PlayerJoinEvent e) {
+    Player player = e.getPlayer();
+    World world = player.getWorld();
+    Location playerLocation = player.getLocation();
+
+    //world.spawn(new Location(world, playerLocation.getX(), playerLocation.getY(), playerLocation.getZ()), Pig.class);
+
+    world.getBlockAt(
+        new Location(world,
+            playerLocation.getX() + 3,
+            playerLocation.getY(),
+            playerLocation.getZ())).setType(Material.BEACON);
+  }
+
 
   /**
    * プレイヤーがスニークを開始/終了する際に起動されるイベントハンドラ。
@@ -102,9 +121,9 @@ public final class First_plugin extends JavaPlugin implements Listener {
   }
 
   //PlayerがJoinしたらMessageを表示する。
-  @EventHandler
-  public void PlayerJoinEvent(PlayerJoinEvent e) {
-    Player player = e.getPlayer();
-    e.setJoinMessage(player.getName() + "が参加しました");
-  }
+  //@EventHandler
+  //public void PlayerJoinEvent(PlayerJoinEvent e) {
+  //  Player player = e.getPlayer();
+  //  e.setJoinMessage(player.getName() + "が参加しました");
+  //}
 }
