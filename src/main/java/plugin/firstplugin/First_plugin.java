@@ -30,9 +30,9 @@ public final class First_plugin extends JavaPlugin implements Listener {
   @Override
   public void onEnable() {
     Bukkit.getPluginManager().registerEvents(this, this);
-    //"levelup"を実行するとLevelUpCommandのonCommandを実行する。
+    //"setLeve"を実行するとSetLevelCommandのonCommandを実行する。
     //plugin.ymlにコマンドを入力する。
-    getCommand("levelup").setExecutor(new LevelUpCommand());
+    getCommand("setLevel").setExecutor(new SetLevelCommand());
   }
 
   /**
@@ -74,6 +74,7 @@ public final class First_plugin extends JavaPlugin implements Listener {
         // 追加した情報で再設定する。
         firework.setFireworkMeta(fireworkMeta);
       }
+      //花火打ち上げ時にメッセージを表示する。
       Path path = Path.of("firework.text");
       Files.writeString(path, "キレーだねー", StandardOpenOption.APPEND);
       player.sendMessage(Files.readString(path));
@@ -92,6 +93,7 @@ public final class First_plugin extends JavaPlugin implements Listener {
     player.getInventory().setContents(itemStacks);
   }
 
+  //PlayerがJoinしたらMessageを表示する。
   @EventHandler
   public void PlayerJoinEvent(PlayerJoinEvent e) {
     Player player = e.getPlayer();
