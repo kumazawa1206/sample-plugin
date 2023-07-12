@@ -7,6 +7,13 @@ import org.bukkit.entity.Player;
 
 public class SetLevelCommand implements CommandExecutor {
 
+  //コンストラクタを用いてMainの機能を使えるようにする。
+  private First_plugin first_plugin;
+
+  public SetLevelCommand(First_plugin first_plugin) {
+    this.first_plugin = first_plugin;
+  }
+
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (sender instanceof Player player) {
@@ -15,7 +22,7 @@ public class SetLevelCommand implements CommandExecutor {
       if (args.length == 1) {
         player.setLevel(Integer.parseInt(args[0]));
       } else {
-        player.sendMessage("No!!");
+        player.sendMessage(first_plugin.getConfig().getString("Message"));
       }
     }
     return false;

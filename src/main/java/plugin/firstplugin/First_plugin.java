@@ -3,7 +3,6 @@ package plugin.firstplugin;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -29,10 +28,18 @@ public final class First_plugin extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
+    //config.ymlを生成して設定ファイルを読み取るための御作法
+    saveDefaultConfig();
+    getConfig().getString("Message");
+
     Bukkit.getPluginManager().registerEvents(this, this);
+
     //"setLeve"を実行するとSetLevelCommandのonCommandを実行する。
     //plugin.ymlにコマンドを入力する。
-    getCommand("setLevel").setExecutor(new SetLevelCommand());
+    getCommand("setLevel").setExecutor(new SetLevelCommand(this));
+
+    //"allSetLeve"を実行するとAllSetLevelCommandのonCommandを実行する。
+    //plugin.ymlにコマンドを入力する。
     getCommand("allSetLevel").setExecutor(new AllSetLevelCommand());
   }
 
@@ -77,7 +84,7 @@ public final class First_plugin extends JavaPlugin implements Listener {
       }
       //花火打ち上げ時にメッセージを表示する。
       Path path = Path.of("firework.text");
-      Files.writeString(path, "キレーだねー", StandardOpenOption.APPEND);
+      Files.writeString(path, "キレーだねー");
       player.sendMessage(Files.readString(path));
     }
     count++;
