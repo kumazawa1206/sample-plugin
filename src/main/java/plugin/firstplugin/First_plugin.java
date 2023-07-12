@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -87,5 +88,11 @@ public final class First_plugin extends JavaPlugin implements Listener {
         .forEach(item -> item.setAmount(20));
 
     player.getInventory().setContents(itemStacks);
+  }
+
+  @EventHandler
+  public void PlayerJoinEvent(PlayerJoinEvent e) {
+    Player player = e.getPlayer();
+    e.setJoinMessage(player.getName() + "が参加しました");
   }
 }
