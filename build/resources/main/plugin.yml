@@ -3,4 +3,4 @@ version: '1.0-SNAPSHOT'
 main: plugin.firstplugin.First_plugin
 api-version: '1.19'
 commands:
-  levelUp:
+  setLevel:
