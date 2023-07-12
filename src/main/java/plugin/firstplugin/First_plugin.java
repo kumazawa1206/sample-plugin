@@ -33,6 +33,7 @@ public final class First_plugin extends JavaPlugin implements Listener {
     //"setLeve"を実行するとSetLevelCommandのonCommandを実行する。
     //plugin.ymlにコマンドを入力する。
     getCommand("setLevel").setExecutor(new SetLevelCommand());
+    getCommand("allSetLevel").setExecutor(new AllSetLevelCommand());
   }
 
   /**
