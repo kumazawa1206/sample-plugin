@@ -29,8 +29,10 @@ public final class First_plugin extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
-
     Bukkit.getPluginManager().registerEvents(this, this);
+    //"levelup"を実行するとLevelUpCommandのonCommandを実行する。
+    //plugin.ymlにコマンドを入力する。
+    getCommand("levelup").setExecutor(new LevelUpCommand());
   }
 
   /**
